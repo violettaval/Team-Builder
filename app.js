@@ -16,12 +16,12 @@ const idArray = [];
 function squadUp() {
     function partyLeader() {
         console.log("Every good team needs a leader!");
-        console.log("Lets start with your Team Lead's information,");
+        console.log("Lets start with your manager's information,");
         inquirer.prompt([
             {
                 type: "input",
-                name: "leaderName",
-                message: "What is your Team Lead's name?",
+                name: "managerName",
+                message: "What is your manager's name?",
                 validate: answer => {
                     if (answer !== "") {
                         return true;
@@ -72,15 +72,16 @@ function squadUp() {
                 }
             }
         ]).then(answers => {
-            const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOfficeNumber);
+            const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerNumber);
             teamMembers.push(manager);
             idArray.push(answers.managerId);
-            console.log("Your Team Lead has been created!");
+            console.log(`Your Team Lead, ${answers.managerName} has been created!`);
             makeTeam();
         });
     }
     function makeTeam() {
         console.log("A great team needs their supporting staff");
+        console.log(`You have ${teamMembers.length} member(s)`);
         inquirer.prompt([
             {
                 type: "list",
@@ -92,8 +93,8 @@ function squadUp() {
                     "I don't have any more team members to add"
                 ]
             }
-        ]).then(userChoice => {
-            switch (userChoice.memberChoice) {
+        ]).then(userSelection => {
+            switch (userSelection.memberSelection) {
                 case "Engineer":
                     makeEngineer();
                     break;
@@ -165,6 +166,7 @@ function squadUp() {
             const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
             teamMembers.push(engineer);
             idArray.push(answers.engineerId);
+            console.log(`Your Engineer, ${answers.engineerName} has been created!`);
             makeTeam();
         });
     }
@@ -229,6 +231,7 @@ function squadUp() {
             const intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool);
             teamMembers.push(intern);
             idArray.push(answers.internId);
+            console.log(`Your Intern, ${answers.internName} has been created!`);
             makeTeam();
         });
     }
@@ -237,8 +240,8 @@ function squadUp() {
           fs.mkdirSync(OUTPUT_DIR)
         }
         fs.writeFileSync(outputPath, render(teamMembers), "utf-8");
+        console.log(`Your Team of ${teamMembers.length} is ready to roll!`);
     }
     partyLeader();
 }
 squadUp();
-
