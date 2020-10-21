@@ -27,7 +27,7 @@ npm i
 
 ## Usage
 
-This is a node.js application
+This is a node.js application which will generate an html file in the output directory after following prompts about your team members.
 
 
   
