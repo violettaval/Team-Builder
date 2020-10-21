@@ -79,6 +79,7 @@ function squadUp() {
             makeTeam();
         });
     }
+
     function makeTeam() {
         console.log("A great team needs their supporting staff");
         console.log(`You have ${teamMembers.length} member(s)`);
@@ -93,8 +94,8 @@ function squadUp() {
                     "I don't have any more team members to add"
                 ]
             }
-        ]).then(userSelection => {
-            switch (userSelection.memberSelection) {
+        ]).then(userChoice => {
+            switch (userChoice.memberChoice) {
                 case "Engineer":
                     makeEngineer();
                     break;
@@ -106,6 +107,7 @@ function squadUp() {
             }
         });
     }
+
     function makeEngineer() {
         inquirer.prompt([
             {
@@ -170,6 +172,7 @@ function squadUp() {
             makeTeam();
         });
     }
+
     function makeIntern() {
         inquirer.prompt([
             {
@@ -235,13 +238,15 @@ function squadUp() {
             makeTeam();
         });
     }
+
     function rollOutSquad() {
         if (!fs.existsSync(OUTPUT_DIR)) {
-          fs.mkdirSync(OUTPUT_DIR)
+            fs.mkdirSync(OUTPUT_DIR)
         }
         fs.writeFileSync(outputPath, render(teamMembers), "utf-8");
         console.log(`Your Team of ${teamMembers.length} is ready to roll!`);
     }
+
     partyLeader();
 }
 squadUp();
